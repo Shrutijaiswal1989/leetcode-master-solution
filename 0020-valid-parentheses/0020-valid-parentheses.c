@@ -33,4 +33,3 @@ bool isValid(char* s) {
     free(stack);
     return sp == 0 ? true : false;
 }
-
