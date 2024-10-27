@@ -1,0 +1,2 @@
+# Write your MySQL query statement below
+SELECT current_day.id AS Id FROM Weather AS current_day WHERE EXISTS(SELECT 1 FROM Weather AS yesterday_day WHERE current_day.temperature > yesterday_day.temperature AND current_day.recordDate = yesterday_day.recordDate + 1 );
