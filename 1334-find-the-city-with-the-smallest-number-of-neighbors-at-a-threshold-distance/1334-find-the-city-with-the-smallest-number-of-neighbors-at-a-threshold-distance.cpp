@@ -1,45 +1,53 @@
 class Solution {
- public:
-  int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
-    int ans = -1;
-    int minCitiesCount = n;
-    const vector<vector<int>> dist = floydWarshall(n, edges, distanceThreshold);
-
-    for (int i = 0; i < n; ++i) {
-      int citiesCount = 0;
-      for (int j = 0; j < n; ++j)
-        if (dist[i][j] <= distanceThreshold)
-          ++citiesCount;
-      if (citiesCount <= minCitiesCount) {
-        ans = i;
-        minCitiesCount = citiesCount;
-      }
+public:
+    int n, distanceThreshold;
+    int dist[100][100];
+    
+    void FW(vector<vector<int>>& edges){
+        fill(&dist[0][0], &dist[0][0]+100*100, 1e9);
+        for (int i = 0; i < n; i++) 
+            dist[i][i] = 0;
+        for (auto& e : edges){
+            int u=e[0], v = e[1], w = e[2];
+            if (w <= distanceThreshold) 
+                dist[u][v]=dist[v][u]=w;
+        }
+       
+        for (int k = 0; k < n; k++)
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++) {
+                    dist[i][j]=min(dist[i][j], dist[i][k]+dist[k][j]);
+                }
     }
 
-    return ans;
-  }
-
- private:
-  vector<vector<int>> floydWarshall(int n, const vector<vector<int>>& edges,
-                                    int distanceThreshold) {
-    vector<vector<int>> dist(n, vector<int>(n, distanceThreshold + 1));
-
-    for (int i = 0; i < n; ++i)
-      dist[i][i] = 0;
-
-    for (const vector<int>& edge : edges) {
-      const int u = edge[0];
-      const int v = edge[1];
-      const int w = edge[2];
-      dist[u][v] = w;
-      dist[v][u] = w;
+    int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
+        this->n = n;
+        this->distanceThreshold = distanceThreshold;
+        FW(edges);
+        
+        int min_cnt = n, city = -1;
+        for (int i = 0; i <n ; i++){
+            int cnt = -1;  // i itself doesn't count
+            for (int j = 0; j < n; j++){
+                if (dist[i][j] <= distanceThreshold) 
+                    cnt++;
+            }
+            if (cnt <=min_cnt ){
+                min_cnt=cnt;
+                city=i;
+            }
+        }
+        return city;
     }
-
-    for (int k = 0; k < n; ++k)
-      for (int i = 0; i < n; ++i)
-        for (int j = 0; j < n; ++j)
-          dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
-
-    return dist;
-  }
 };
+
+
+
+
+
+auto init = []() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 'c';
+}(); 
