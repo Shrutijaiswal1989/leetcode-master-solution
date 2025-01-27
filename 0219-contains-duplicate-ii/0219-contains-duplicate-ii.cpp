@@ -7,9 +7,9 @@ public:
                 {
                     return 0;
                 }
-            for(int j=i+1;j<nums.size();j++)
+            for(int j=i+1;j<nums.size() && j<=i+k;j++)
             {
-                if(nums[i]==nums[j] && abs(i-j)<=k && i!=j)
+                if(nums[i]==nums[j])
                 {
                     return true;
                 }
