@@ -1,16 +1,19 @@
 class Solution {
 public:
-    vector<int> getRow(int n) {
-        vector<int> nums;
-        if (n == 0) return {1};
-        vector<int> dp = {1}; 
-        for (int i = 1; i <= n; i++) {
-            vector<int> temp(i + 1, 1); 
-            for (int j = 1; j < i; j++) {
-                temp[j] = dp[j - 1] + dp[j]; 
+    vector<int> getRow(int rowIndex) {
+      
+      vector<int> result(rowIndex+1,1);
+
+        for(int i=0;i<rowIndex;i++)
+        {
+            
+            for(int j=i;j>=1;j--)
+            {
+                result[j]+=result[j-1];
+                
             }
-            dp = temp;
+            // ans.push_back(result);
         }
-        return dp; 
+        return result;
     }
 };
