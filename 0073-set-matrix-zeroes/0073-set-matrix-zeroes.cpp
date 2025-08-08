@@ -22,7 +22,7 @@ public:
         {
             for(int j=0;j<m;j++)
             {
-                if(row[i]==1 || col[j]==1)
+                if(row[i] || col[j])
                 {
                     matrix[i][j]=0;
                 }
