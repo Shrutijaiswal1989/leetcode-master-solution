@@ -1,18 +1,21 @@
 class Solution {
 public:
-    vector<vector<int>> generate(int numRows) {
-        vector<vector<int>> result;
-        for(int i=0;i<numRows;i++)
+    vector<vector<int>> generate(int n) {
+        vector<vector<int>> ans(n);
+        for(int i=0;i<n;i++)
         {
-            vector<int> dummy(i+1,1);
-            // int sum=0;
-            for(int j=1;j<i;j++)
+            for(int j=0;j<=i;j++)
             {
-             dummy[j]=result[i-1][j-1]+result[i-1][j];
-
+                if(j==0 || j==i)
+                {
+                    ans[i].push_back(1);
+                }
+                else{
+                    ans[i].push_back(ans[i-1][j-1]+ans[i-1][j]);
+                }
             }
-            result.push_back(dummy);
         }
-        return result;
+        return ans;
+        
     }
 };
