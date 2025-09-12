@@ -1,23 +1,25 @@
 class Solution {
- public:
-  int compareVersion(string version1, string version2) {
-    istringstream iss1(version1);
-    istringstream iss2(version2);
-    int v1;
-    int v2;
-    char dotChar;
+public:
+    int compareVersion(string version1, string version2) {
+        int i=0, j=0,n1, n2, dhebru1=version1.size(), dhebru2=version2.size();
+        while(i<dhebru1 || j<dhebru2){
+            n1=0;
+            n2=0;
+            while(i<dhebru1 && version1[i]!='.'){
+                n1=n1*10+(version1[i]-'0');
+                i++;
+            }
+            while(j<dhebru2 && version2[j]!='.'){
+                n2=n2*10+(version2[j]-'0');
+                j++;
+            }
+            if(n1<n2) return -1;
+            else if(n1>n2) return 1;
+            i++;
+            j++;
 
-    while (bool(iss1 >> v1) + bool(iss2 >> v2)) {
-      if (v1 < v2)
-        return -1;
-      if (v1 > v2)
-        return 1;
-      iss1 >> dotChar;
-      iss2 >> dotChar;
-      v1 = 0;
-      v2 = 0;
+        }
+        return 0;
+        
     }
-
-    return 0;
-  };
 };
