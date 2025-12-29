@@ -1,5 +1,6 @@
 class Solution {
 public:
+  
     int trap(vector<int>& height) {
         int maxleft=0,maxright=0,water=0,index=0,maxheight=height[0];
 
