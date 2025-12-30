@@ -1,17 +1,19 @@
 class Solution {
 public:
     bool checkIfPangram(string sentence) {
-        vector<char> alphabet(26,0);
-        for(int i=0;i<sentence.size();i++)
-        {
-            alphabet[sentence[i]-'a']++;
+        vector<bool> alpha(26,0);
+        int index=0;
+        while(index<sentence.size()){
+            int pos=sentence[index]-'a';
+            alpha[pos]=1;
+            index++;
         }
-        for(int i=0;i<alphabet.size();i++)
-        {
-            if(alphabet[i]==0)
-            return 0;
+        for(int i=0;i<alpha.size();i++){
+            if(alpha[i]==0){
+                return false;
+            }
+
         }
-        return 1;
-        
+        return true;
     }
 };
